@@ -13,8 +13,8 @@ module.exports = {
 	},
 	plugins: [
 		new webpack.ProvidePlugin({				
-			'$': 'jquery', /* allows us to not specify requring jQuery files in jsx files */
-			'jQuery': 'jquery' 
+			$: "jquery", /* allows us to not specify requring jQuery files in jsx files */
+			jQuery: "jquery"
 		})
 	],
 	output: {
@@ -28,6 +28,7 @@ module.exports = {
 			Navigation: 'app/components/Navigation.jsx',
 			Timer: 'app/components/Timer.jsx',
 			Countdown: 'app/components/Countdown.jsx',
+			Clock: 'app/components/Clock.jsx',
 			applicationStyles: 'app/styles/app.scss'
 		},
 		extensions: ['', '.js', '.jsx']
