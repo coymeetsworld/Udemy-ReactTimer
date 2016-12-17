@@ -11,12 +11,11 @@ describe('Timer', () => {
 	it('should exist', () => {
 		expect(Timer).toExist();
 	});
-
 	
 	describe('handleStart', () => {
-		it('should set state to started and count up to 1', (done) => {
+		it('should set state to started and count up to 1', () => {
 			var timer = TestUtils.renderIntoDocument(<Timer/>);	
-			timer.handleStart();
+			timer.handleStatusChange('started');
 			expect(timer.state.count).toBe(0);
 			expect(timer.state.timerStatus).toBe('started');
 
@@ -27,9 +26,9 @@ describe('Timer', () => {
 			}, 1001);
 		});
 
-		it('should set state to started and count up to 5', (done) => {
+		it('should set state to started and count up to 5', () => {
 			var timer = TestUtils.renderIntoDocument(<Timer/>);	
-			timer.handleStart();
+			timer.handleStatusChange('started');
 			expect(timer.state.count).toBe(0);
 			expect(timer.state.timerStatus).toBe('started');
 
@@ -43,29 +42,29 @@ describe('Timer', () => {
 	});
 
 	describe('handlePause', () => {
-		it('should set state to pause and count should be maintained', (done) => {
+		it('should set state to pause and count should be maintained', () => {
 			var timer = TestUtils.renderIntoDocument(<Timer/>);	
-			timer.handleStart();
+			timer.handleStatusChange('started');
 			setTimeout(() => {
-				timer.handlePause();
+			  timer.handleStatusChange('paused');
 				expect(timer.state.count).toBe(3);
 				expect(timer.state.timerStatus).toBe('paused');
 				done();
 			}, 3001);
 		});
 		
-		it('should resume count after a paused state goes to started', (done) => {
+		it('should resume count after a paused state goes to started', () => {
 			var timer = TestUtils.renderIntoDocument(<Timer/>);	
-			timer.handleStart();
+			timer.handleStatusChange('started');
 			setTimeout(() => {
-				timer.handlePause();
+			  timer.handleStatusChange('paused');
 				expect(timer.state.count).toBe(3);
 				expect(timer.state.timerStatus).toBe('paused');
 				done();
 			}, 3001);
 			
 			setTimeout(() => {
-				timer.handleStart();
+			  timer.handleStatusChange('started');
 				expect(timer.state.count).toBe(6);
 				expect(timer.state.timerStatus).toBe('started');
 				done();
@@ -75,14 +74,14 @@ describe('Timer', () => {
 		
 
 	describe('handleClear', () => {
-		it('should set state to clear and count should reset to 0', (done) => {
+		it('should set state to clear and count should reset to 0', () => {
 			var timer = TestUtils.renderIntoDocument(<Timer/>);	
-			timer.handleStart();
+			timer.handleStatusChange('started');
 
 			setTimeout(() => {
-				timer.handleClear();
+			  timer.handleStatusChange('cleared');
 				expect(timer.state.count).toBe(0);
-				expect(timer.state.timerStatus).toBe('stopped');
+				expect(timer.state.timerStatus).toBe('paused');
 				done();
 			}, 3001);
 		});
